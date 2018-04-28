@@ -4,6 +4,7 @@
   <title>The Unnamed Team</title>
   <script type="text/javascript" src="../static/smoothie.js"></script>
   <script type="text/javascript" src="../static/socket.io.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
   <link rel="stylesheet" href="../static/style.css"/>
 </head>
 
@@ -11,8 +12,9 @@
   <section id="sidebar" class="dark">
     <h1>Med Drone</h1>
     <ul>
-      <li>Drone 1</li>
-      <li>Drone 2</li>
+      <li>Drone 1: Relaying Data</li>
+      <li>Drone 2: Idle</li>
+      <li>Drone 3: Idle</li>
     </ul>
   </section>
   <section id="main">
@@ -24,17 +26,24 @@
       <div id="cards-map" class="dark">
         <h3>Location</h3>
         <div id="map"></div>
-        <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOIeRTFipqUY1EA1k99tEAWcleP69bBSk&callback=initMap">
-        </script>
       </div>
       <div id="cards-heartbeat" class="dark">
         <h3>Heartbeat</h3>
         <canvas id="heartbeat-canvas" width="400" height="200"></canvas>
       </div>
+      <div id="cards-charge" class="dark">
+        <h3>Charge</h3>
+        <h1 class="half">56% <i class="fas fa-battery-half"></i></h1>
+      </div>
+    </div>
+    <div id="commands">
+      <div class="option dark">Halt Operation</div>
     </div>
   </section>
   <script type="text/javascript" src="../static/main.js"></script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOIeRTFipqUY1EA1k99tEAWcleP69bBSk&callback=initMap">
+  </script>
 </body>
 
 </html>
