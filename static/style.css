@@ -20,19 +20,9 @@ h3, h1 {
   box-shadow: 0 10px 20px #333;
 }
 
-#main {
-  padding: 40px;
-}
-
-#heartbeat, #map, #status {
-  margin: 10px;
-  float: right;
-  padding: 20px;
-  border-radius: 10px;
-}
 
 #sidebar {
-  width: 300px;
+  width: 20%;
   height: 100%;
   position: absolute;
   top: 0;
@@ -69,6 +59,53 @@ h3, h1 {
   height: 50px;
   /*background: #424f59;*/
   background: black;
+}
+
+#main {
+  width: 80%;
+  height: 100%;
+  float: right;
+}
+
+#cards {
+  padding: 40px;
+}
+
+#cards-heartbeat, #cards-map {
+  margin: 10px;
+  float: left;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#map {
+  height: 500px;
+  width: 500px;
+}
+
+#status {
+  /*position: absolute;
+  bottom: 0;*/
+  width: 100%;
+  text-align: center;
+}
+
+#status h3 {
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+#status div {
+  width: 20%;
+  float: left;
+  background: #313e48;
+  padding: 20px;
+  color: #777;
+}
+
+#status .active {
+  background: #202d37;
+  color: white;
 }
 
 .light {

@@ -23,5 +23,50 @@ var socket = io.connect('http://localhost:80');
 socket.on('hb_data', function(data) {
   console.log(data)
   var jdata = JSON.parse(data);
-  heartbeat.append(jdata.time, jdata.value);
+  for(d of jdata) {
+    heartbeat.append(d.time, d.value);
+  }
 });
+
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 18,
+    center: {lat: 40.0152329, lng: -105.2780127},
+    mapTypeId: google.maps.MapTypeId.HYBRID,
+  });
+  map.setTilt(0);
+
+  map.data.setStyle(function(feature) {
+    return {
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: 'red',
+        fillOpacity: 1,
+        scale: 15,
+        strokeColor: 'white',
+        strokeWeight: 1
+      }
+    };
+  });
+
+  map.data.addGeoJson({
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        properties: {
+          count: 50
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [-105.2780127,40.0152329]
+        }
+      },
+    ]
+  });
+}
+
+function eqfeed_callback(results) {
+  map.data.addGeoJson(results);
+}

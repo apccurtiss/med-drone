@@ -8,26 +8,30 @@
 </head>
 
 <body class="light">
-  <!-- <section id="header" class="dark">
-    <div id="title">Drone Response</div>
-  </section> -->
-  <div id="sidebar" class="dark">
+  <section id="sidebar" class="dark">
     <h1>Med Drone</h1>
     <ul>
       <li>Drone 1</li>
       <li>Drone 2</li>
     </ul>
-  </div>
+  </section>
   <section id="main">
-    <div id="heartbeat" class="dark">
-      <h3>Heartbeat</h3>
-      <canvas id="heartbeat-canvas" width="400" height="200"></canvas>
-    </div>
-    <div id="map" class="dark">
-      <h3>Map</h3>
-    </div>
     <div id="status" class="dark">
       <h3>Status</h3>
+      <div>Idle</div><div>Traveling</div><div>Deploying</div><div class="active">Relaying Data</div><div>Returning</div>
+    </div>
+    <div id="cards">
+      <div id="cards-map" class="dark">
+        <h3>Location</h3>
+        <div id="map"></div>
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOIeRTFipqUY1EA1k99tEAWcleP69bBSk&callback=initMap">
+        </script>
+      </div>
+      <div id="cards-heartbeat" class="dark">
+        <h3>Heartbeat</h3>
+        <canvas id="heartbeat-canvas" width="400" height="200"></canvas>
+      </div>
     </div>
   </section>
   <script type="text/javascript" src="../static/main.js"></script>
