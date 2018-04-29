@@ -71,7 +71,7 @@ h3, h1 {
   padding: 40px;
 }
 
-#cards-heartbeat, #cards-map, #cards-charge {
+#cards-heartbeat, #cards-map, #cards-charge, #cards-bp {
   margin: 10px;
   float: left;
   padding: 20px;

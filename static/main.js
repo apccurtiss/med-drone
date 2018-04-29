@@ -12,45 +12,85 @@ var drones = [
 ]
 
 var DELAY = 1000; // ms
-var smoothie = new SmoothieChart({
+var smoothie_heartbeat = new SmoothieChart({
+  maxValue: 250,
+  minValue: 0,
+  millisPerPixel:100,
   grid: {
-    strokeStyle: 'rgb(120, 120, 120)',
+    millisPerLine: 10000,
+    verticalSections:2,
+    strokeStyle: 'rgb(60, 60, 60)',
     fillStyle: 'rgb(0, 0, 0)',
     lineWidth: 1,
-    millisPerLine: 250,
-    verticalSections: 6,
   },
   labels: {
     fillStyle:'rgb(255, 255, 255)'
   }
 });
-smoothie.streamTo(document.getElementById("heartbeat-canvas"), DELAY);
+smoothie_heartbeat.streamTo(document.getElementById("heartbeat-canvas"), DELAY);
+var smoothie_bp = new SmoothieChart({
+  maxValue: 250,
+  minValue: 0,
+  millisPerPixel:100,
+  grid: {
+    millisPerLine: 10000,
+    verticalSections:2,
+    strokeStyle: 'rgb(60, 60, 60)',
+    fillStyle: 'rgb(0, 0, 0)',
+    lineWidth: 1,
+  },
+  labels: {
+    fillStyle:'rgb(255, 255, 255)'
+  }
+});
+console.log(document.getElementById("heartbeat-canvas"))
+console.log(document.getElementById("bp-canvas"))
+smoothie_bp.streamTo(document.getElementById("bp-canvas"), DELAY);
 var heartbeat = new TimeSeries();
-smoothie.addTimeSeries(heartbeat,
+var bloodpressure_up = new TimeSeries();
+var bloodpressure_lo = new TimeSeries();
+smoothie_heartbeat.addTimeSeries(heartbeat,
   {
     strokeStyle: 'rgb(255, 255, 255)',
     lineWidth: 4,
   });
+smoothie_bp.addTimeSeries(bloodpressure_up,
+  {
+    strokeStyle: 'rgb(255, 0, 0)',
+    // fillStyle:'rgba(255,0,0,0.5)',
+    lineWidth: 4,
+  });
+smoothie_bp.addTimeSeries(bloodpressure_lo,
+  {
+    strokeStyle: 'rgb(255, 0, 0)',
+    // fillStyle:'rgba(0,0,0,0.8)',
+    lineWidth: 4,
+  });
 
-var t = 0;
-setInterval(function() {
-  var v = 0 + Math.random();
-  if(t == 6) {
-    v = 5 + Math.random();
-  }
-  else if(t == 7) {
-    v = -3 + Math.random();
-  }
-  heartbeat.append(new Date().getTime(), v);
-  t = (t + 1) % 10;
-}, 150);
+// var t = 0;
+// setInterval(function() {
+//   v = 100;
+//   // var v = 0 + Math.random();
+//   // if(t == 6) {
+//   //   v = 5 + Math.random();
+//   // }
+//   // else if(t == 7) {
+//   //   v = -3 + Math.random();
+//   // }
+//   bloodpressure_up.append(new Date().getTime(), v+10);
+//   bloodpressure_lo.append(new Date().getTime(), v);
+//   heartbeat.append(new Date().getTime(), t * 5);
+//   t = (t + 1) % 100;
+// }, 150);
 
 var socket = io.connect('http://localhost:80');
 socket.on('hb_data', function(data) {
   console.log(data)
   var jdata = JSON.parse(data);
   for(d of jdata) {
-    heartbeat.append(d.time, d.value);
+    heartbeat.append(d.time, d.hr);
+    bloodpressure_up.append(d.time, d.bp_upper);
+    bloodpressure_lo.append(d.time, d.bp_lower);
   }
 });
 

@@ -13,9 +13,11 @@ def index():
 
 @app.route('/data', methods=['POST'])
 def data():
-    # print(request.data)
-    socketio.emit('hb_data', request.data.decode('utf-8'), broadcast=True)
-    return 'success'
+	print("Got data:")
+	print(request.data)
+
+	socketio.emit('hb_data', request.data.decode('utf-8'), broadcast=True)
+	return 'success'
 
 if __name__ == '__main__':
 	socketio.run(app, host='0.0.0.0', port=80)
